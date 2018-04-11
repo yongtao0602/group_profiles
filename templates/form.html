@@ -1,0 +1,82 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Please Sign In</title>
+</head>
+<body>
+  <form action="/signin" method="post" enctype="multipart/form-data">
+    <legend>Please input options:</legend>
+      <input name="kws" placeholder="kws" value="{{kws}}">
+      <input name="users" placeholder="users" value="{{users}}">
+      <input name="province" placeholder="province" value="{{province}}">
+      <input name="city" placeholder="city" value="{{city}}">
+      <input name="age" placeholder="age" value="{{age}}">
+      <input name="gender" placeholder="gender" value="{{gender}}">
+      <input type = "file"  name="path[]" placeholder="path"  value="{{path}}" webkitdirectory directory multiple >
+      <input type = "file" name='file' placeholder="file" value="{{file}}">
+      <p><button type="submit">Sign In</button></p>
+  </form>
+  <script>
+      var folder = document.getElementById("myInput");
+      folder.onchange=function(){
+          var files = folder.files,
+          len = files.length,
+          i;
+          for(i=0;i<len;i+=1){
+            console.log(files[i]);
+          }
+      }
+
+
+        function writeObj(obj){
+            var description = "";
+            for(var i in obj){
+            var property=obj[i];
+            description+=i+" = "+property+"\n";
+            }
+            console.log(description);
+         }
+
+         function getFullPath(obj)
+        {
+            if(obj)
+            {
+                if(window.navigator.userAgent.indexOf("MSIE")>=1)    //ie
+                {
+                    obj.select();
+                    console.log(document.ion.createRange().text);
+                }
+                else if(window.navigator.userAgent.indexOf("Firefox")>=1)             //firefox
+                {
+                    if(obj.files)
+                    {
+                        console.log(obj.files.item(0).getAsDataURL());
+                    }
+                    return obj.value;
+                }
+                console.log(obj.value)
+                return obj.value;
+            }
+        }
+
+
+        function getFile(obj) {
+        console.log('----'+obj.value)
+            //获取读取我文件的File对象
+            var selectedFile = document.getElementById('path').files[0];
+            var reader = new FileReader();//这是核心,读取操作就是由它完成.
+            reader.readAsDataURL(selectedFile);
+            reader.onload = function(oFRevent){
+                    var src = oFRevent.target.result;
+                    writeObj(oFRevent.target)
+                    console.log(src)
+            }
+            //reader.readAsText(selectedFile);//读取文件的内容,也可以读取文件的URL
+            //reader.onload = function () {
+                //当读取完成后回调这个函数,然后此时文件的内容存储到了result中,直接操作即可
+                //console.log(this.result);
+           // }
+        }
+    </script>
+</body>
+</html>

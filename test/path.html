@@ -1,0 +1,25 @@
+<html>
+<head>
+    测试
+</head>
+<body>
+</span>
+  </span>
+    </span>选择导入数据源:</span>
+    <input id="myInput" type="file" webkitdirectory directory multiple/>
+  </span>
+</span>
+<script>
+var folder = document.getElementById("myInput");
+folder.onchange=function(){
+  var files = folder.files,
+      len = files.length,
+      i;
+  for(i=0;i<len;i+=1){
+    console.log(files[i]);
+  }
+}
+</script>
+</body>
+</html>
+
